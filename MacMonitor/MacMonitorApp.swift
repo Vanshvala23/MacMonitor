@@ -1,17 +1,39 @@
-//
-//  MacMonitorApp.swift
-//  MacMonitor
-//
-//  Created by Vansh Vala on 25/08/26.
-//
-
 import SwiftUI
 
 @main
 struct MacMonitorApp: App {
+
+    @StateObject private var themeManager =
+        ThemeManager()
+
     var body: some Scene {
+
+        // MARK: - Main Window
+
         WindowGroup {
-            ContentView()
+
+            MainView()
+                .environmentObject(
+                    themeManager
+                )
+                .preferredColorScheme(
+                    themeManager.colorScheme
+                )
         }
+
+        // MARK: - Menu Bar
+
+        MenuBarExtra {
+
+            MenuBarView()
+
+        } label: {
+
+            Image(
+                systemName:
+                    "gauge.with.dots.needle.bottom.50percent"
+            )
+        }
+        .menuBarExtraStyle(.window)
     }
 }
